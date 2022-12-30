@@ -1,0 +1,6 @@
+.bsp/
+.idea/
+target/
+deployment/out.yml
+graalvm-lambda/lambda-binary*
+.DS_Store
