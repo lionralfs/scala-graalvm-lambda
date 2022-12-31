@@ -1,5 +1,5 @@
 my attempt at setting up a lambda that is written in scala but uses graalvm to create a single, static binary + a custom
-aws runtime (see `bootstrap.sh`)
+aws runtime (see [`Bootstrap.scala`](./src/main/scala/example/Bootstrap.scala))
 
 1. create a bucket to store the lambda code
 2. run `./deployment/deploy.sh <the-bucket-name-from-step-1>`
