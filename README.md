@@ -8,10 +8,9 @@ aws runtime (see [`Bootstrap.scala`](./src/main/scala/example/Bootstrap.scala))
 
 ### Results
 
-(not scientific at all):
+(not scientific at all, first row is non-coldstarts, second row are the coldstarts):
 
-- Init duration: 205.22 ms
-- ~1.25ms
+![Results](./results.png)
 
 ### for local testing
 
@@ -39,3 +38,4 @@ aws runtime (see [`Bootstrap.scala`](./src/main/scala/example/Bootstrap.scala))
 - https://towardsdatascience.com/aws-lambda-with-custom-docker-images-as-runtime-9645b7baeb6f
 - https://aripalo.com/blog/2020/aws-lambda-container-image-support/
 - https://docs.aws.amazon.com/lambda/latest/dg/runtimes-api.html
+- https://aws.amazon.com/blogs/compute/build-a-custom-java-runtime-for-aws-lambda/
