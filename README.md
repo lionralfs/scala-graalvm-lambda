@@ -39,3 +39,4 @@ aws runtime (see [`Bootstrap.scala`](./src/main/scala/example/Bootstrap.scala))
 - https://aripalo.com/blog/2020/aws-lambda-container-image-support/
 - https://docs.aws.amazon.com/lambda/latest/dg/runtimes-api.html
 - https://aws.amazon.com/blogs/compute/build-a-custom-java-runtime-for-aws-lambda/
+- https://www.formkiq.com/blog/tutorials/aws-lambda-graalvm/
