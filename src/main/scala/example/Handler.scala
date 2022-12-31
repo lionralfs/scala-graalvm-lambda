@@ -1,10 +1,13 @@
-package example;
+package example
 
-object Handler {
-  println("setting up env")
+import java.time.Instant;
 
-  def main(args: Array[String]): Unit = {
-    println("main")
-    println(args.mkString("\n"))
+class Handler {
+  println(Instant.now(), "setting up env")
+
+  def handle(request: String): String = {
+    println(Instant.now(), "handle")
+    println(Instant.now(), request)
+    "It worked"
   }
 }

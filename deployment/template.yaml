@@ -13,7 +13,7 @@ Resources:
     Properties:
       Code: ../graalvm-lambda
       Handler: example.Handler::main
-      Runtime: provided
+      Runtime: provided.al2
       MemorySize: 256
       Timeout: 5
       FunctionName: !Ref lambdaFunctionName
