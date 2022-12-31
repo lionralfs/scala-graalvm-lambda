@@ -8,7 +8,7 @@ aws runtime (see [`Bootstrap.scala`](./src/main/scala/example/Bootstrap.scala))
 
 ### Results
 
-(not scientific at all, first row is non-coldstarts, second row are the coldstarts):
+(not scientific at all, first row is non-coldstarts, second row are the coldstarts in milliseconds):
 
 ![Results](./results.png)
 
