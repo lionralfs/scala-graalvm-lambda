@@ -11,15 +11,14 @@ import java.time.{Duration, Instant}
 
 object Bootstrap {
   private val LAMBDA_VERSION_DATE = "2018-06-01"
-  private val runtimeApi = System.getenv("AWS_LAMBDA_RUNTIME_API")
-  //  private val taskRoot = System.getenv("LAMBDA_TASK_ROOT")
-  private val logGroupName = System.getenv("AWS_LAMBDA_LOG_GROUP_NAME")
-  private val logStreamName = System.getenv("AWS_LAMBDA_LOG_STREAM_NAME")
-  private val functionName = System.getenv("AWS_LAMBDA_FUNCTION_NAME")
-  private val memorySize = System.getenv("AWS_LAMBDA_FUNCTION_MEMORY_SIZE")
-  private val functionVersion = System.getenv("AWS_LAMBDA_FUNCTION_VERSION")
-  private val handlerName = System.getenv("_HANDLER")
-  private val httpClient = HttpClient.newBuilder
+  private lazy val runtimeApi = System.getenv("AWS_LAMBDA_RUNTIME_API")
+  private lazy val logGroupName = System.getenv("AWS_LAMBDA_LOG_GROUP_NAME")
+  private lazy val logStreamName = System.getenv("AWS_LAMBDA_LOG_STREAM_NAME")
+  private lazy val functionName = System.getenv("AWS_LAMBDA_FUNCTION_NAME")
+  private lazy val memorySize = System.getenv("AWS_LAMBDA_FUNCTION_MEMORY_SIZE")
+  private lazy val functionVersion = System.getenv("AWS_LAMBDA_FUNCTION_VERSION")
+  private lazy val handlerName = System.getenv("_HANDLER")
+  private lazy val httpClient = HttpClient.newBuilder
     .version(Version.HTTP_2)
     .connectTimeout(Duration.ofSeconds(10))
     .build

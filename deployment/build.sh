@@ -11,6 +11,7 @@ docker run \
   graalvm-build \
   --static \
   --no-fallback \
+  --initialize-at-build-time=example,scala,java,com.oracle,com.amazonaws,org.joda \
   -H:ReflectionConfigurationFiles=/opt/config/reflect-config.json \
   -jar /opt/assembly/lambda-scala.jar \
   lambda-binary
