@@ -12,6 +12,4 @@ COPY graalvm-lambda/lambda-binary lambda-binary
 RUN chmod 755 lambda-binary
 
 # Set the handler
-# by convention <fileName>.<handlerName>
-# (I don't think this matters cause I'm directly invoking the binary in my bootstrap script)
-CMD [ "lambda-binary" ]
+CMD [ "example.Handler::handleRequest" ]

@@ -5,14 +5,14 @@ Parameters:
   lambdaFunctionName:
     Type: String
     AllowedPattern: '[a-zA-Z0-9]+[a-zA-Z0-9-]+[a-zA-Z0-9]+'
-    Default: example-lambda
+    Default: scala-graalvm-lambda
 
 Resources:
   lambdaFunction:
     Type: AWS::Lambda::Function
     Properties:
       Code: ../graalvm-lambda
-      Handler: example.Handler::main
+      Handler: example.Handler::handleRequest
       Runtime: provided.al2
       MemorySize: 256
       Timeout: 5

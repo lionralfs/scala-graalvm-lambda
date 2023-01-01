@@ -8,27 +8,16 @@ aws runtime (see [`Bootstrap.scala`](./src/main/scala/example/Bootstrap.scala))
 
 ### Results
 
-(not scientific at all, first row is non-coldstarts, second row are the coldstarts in milliseconds):
+(not scientific at all, first row is non-coldstarts, second row are the coldstarts, in milliseconds):
 
 ![Results](./results.png)
 
 ### for local testing
 
-1. `sbt clean assembly`
-2. `docker build -t graalvm-build deployment`
-3. ```
-   docker run \
-   --volume $PWD/target/scala-2.13:/opt/assembly \
-   --volume $PWD/graalvm-lambda:/opt/native-image \
-   graalvm-build \
-   --static \
-   --no-fallback \
-   -jar /opt/assembly/lambda-scala.jar \
-   lambda-binary
-   ```
-4. `docker build -t docker-lambda .`
-5. `docker run -p 9000:8080 docker-lambda:latest`
-6. Send a test event: `curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d 'Hello world!'`
+1. `./deployment/build.sh`
+2. `docker build -t docker-lambda .`
+3. `docker run -p 9000:8080 docker-lambda:latest`
+4. Send a test event: `curl "http://localhost:9000/2015-03-31/functions/function/invocations" -d 'Hello world!'`
 
 ### Resources
 
@@ -40,3 +29,4 @@ aws runtime (see [`Bootstrap.scala`](./src/main/scala/example/Bootstrap.scala))
 - https://docs.aws.amazon.com/lambda/latest/dg/runtimes-api.html
 - https://aws.amazon.com/blogs/compute/build-a-custom-java-runtime-for-aws-lambda/
 - https://www.formkiq.com/blog/tutorials/aws-lambda-graalvm/
+- https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html#configuration-envvars-runtime
