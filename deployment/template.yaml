@@ -1,5 +1,7 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: Example stack for a Lambda that is written in scala and ran through GraalVM
+Description: Example stack for a Lambda that is written in scala
+
+Transform: AWS::Serverless-2016-10-31 # see https://stackoverflow.com/a/62290398/6596135
 
 Parameters:
   lambdaFunctionName:
@@ -9,15 +11,18 @@ Parameters:
 
 Resources:
   lambdaFunction:
-    Type: AWS::Lambda::Function
+    Type: AWS::Serverless::Function
     Properties:
-      Code: ../graalvm-lambda
+      AutoPublishAlias: live
+      CodeUri: ../target/scala-2.13/lambda-scala.jar
       Handler: example.Handler::handleRequest
-      Runtime: provided.al2
+      Runtime: java11
       MemorySize: 256
       Timeout: 5
       FunctionName: !Ref lambdaFunctionName
       Role: !GetAtt lambdaIAMRole.Arn
+      SnapStart:
+        ApplyOn: PublishedVersions
 
   lambdaIAMRole:
     Type: AWS::IAM::Role

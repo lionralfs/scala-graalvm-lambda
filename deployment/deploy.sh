@@ -1,7 +1,7 @@
 #!/bin/bash
 
 BUCKET_NAME=$1
-STACK_NAME=scala-graalvm-lambda-experiment
+STACK_NAME=scala-snapstart-lambda-experiment
 
 ./deployment/build.sh
 

@@ -3,7 +3,7 @@ assembly / assemblyJarName := "lambda-scala.jar"
 
 libraryDependencies ++= Seq(
   "com.amazonaws" % "aws-lambda-java-core" % "1.2.2",
-  "com.amazonaws" % "aws-lambda-java-events" % "3.11.0"
+  "com.amazonaws" % "aws-lambda-java-events" % "3.11.1"
 )
 
 assembly / assemblyMergeStrategy := {

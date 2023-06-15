@@ -6,6 +6,14 @@ aws runtime (see [`Bootstrap.scala`](./src/main/scala/example/Bootstrap.scala))
 3. wait
 4. go into the aws console and invoke the function via the `Test` tab
 
+from https://dev.to/aws-builders/introducing-lambda-snapstart-46no:
+> SnapStart is only usable when invoking fully qualified Lambda ARNs, which means publishing and invoking an specific
+> function version.
+
+```sh
+aws lambda invoke --invocation-type RequestResponse --function-name <FUNCTION_NAME>:<FUNCTION_VERSION> --cli-binary-format raw-in-base64-out --payload \"world\" outputfile.txt
+```
+
 ### Results
 
 (not scientific at all, first row is non-coldstarts, second row are the coldstarts, in milliseconds):
