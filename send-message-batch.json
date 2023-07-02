@@ -1,0 +1,14 @@
+[
+  {
+    "Id": "messageId-1",
+    "MessageBody": "test message 1",
+    "DelaySeconds": 1,
+    "MessageAttributes": {}
+  },
+  {
+    "Id": "messageId-2",
+    "MessageBody": "test message 2",
+    "DelaySeconds": 1,
+    "MessageAttributes": {}
+  }
+]

@@ -3,7 +3,8 @@ assembly / assemblyJarName := "lambda-scala.jar"
 
 libraryDependencies ++= Seq(
   "com.amazonaws" % "aws-lambda-java-core" % "1.2.2",
-  "com.amazonaws" % "aws-lambda-java-events" % "3.11.1"
+  "com.amazonaws" % "aws-lambda-java-events" % "3.11.1",
+  "io.opentelemetry.instrumentation" % "opentelemetry-instrumentation-annotations" % "1.27.0"
 )
 
 assembly / assemblyMergeStrategy := {

@@ -27,6 +27,12 @@ aws lambda invoke --invocation-type RequestResponse --function-name <FUNCTION_NA
 3. `docker run -p 9000:8080 docker-lambda:latest`
 4. Send a test event: `curl "http://localhost:9000/2015-03-31/functions/function/invocations" -d 'Hello world!'`
 
+### send batch SQS events
+
+```sh
+aws sqs send-message-batch --queue-url https://sqs.<aws-region>.amazonaws.com/<aws-account-id>/test-queue --entries file://send-message-batch.json
+```
+
 ### Resources
 
 - https://github.com/andthearchitect/aws-lambda-java-runtime

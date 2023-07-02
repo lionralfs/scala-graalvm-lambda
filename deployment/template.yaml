@@ -18,15 +18,24 @@ Resources:
       Handler: example.Handler::handleRequest
       Runtime: java11
       MemorySize: 256
-      Timeout: 5
+      Timeout: 20
       FunctionName: !Ref lambdaFunctionName
       Role: !GetAtt lambdaIAMRole.Arn
-      SnapStart:
-        ApplyOn: PublishedVersions
+      #      SnapStart:
+      #        ApplyOn: PublishedVersions
+      Environment:
+        Variables:
+          AWS_LAMBDA_EXEC_WRAPPER: /opt/otel-sqs-handler
+          OPENTELEMETRY_COLLECTOR_CONFIG_FILE: s3://<bucket-name>.s3.<bucket-region>.amazonaws.com/collector_config.yaml
+      Layers:
+        - arn:aws:lambda:eu-central-1:901920570463:layer:aws-otel-java-wrapper-amd64-ver-1-26-0:2
+      Tracing: PassThrough # this is specific to AWS::Serverless::Function
+
 
   lambdaIAMRole:
     Type: AWS::IAM::Role
     Properties:
+      RoleName: lambdaRole
       AssumeRolePolicyDocument:
         Version: 2012-10-17
         Statement:
@@ -37,7 +46,8 @@ Resources:
               Service:
                 - lambda.amazonaws.com
       Policies:
-        - PolicyDocument:
+        - PolicyName: allowToWriteLogs
+          PolicyDocument:
             Version: 2012-10-17
             Statement:
               - Action:
@@ -47,13 +57,51 @@ Resources:
                 Effect: Allow
                 Resource:
                   - !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${lambdaFunctionName}:*
-          PolicyName: lambda
+        - PolicyName: allowToAccessBucket
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Action:
+                  - s3:GetObject
+                Effect: Allow
+                Resource:
+                  - arn:aws:s3:::<bucket-name>/*
 
   lambdaLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !Sub /aws/lambda/${lambdaFunctionName}
       RetentionInDays: 7
+
+  queue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: test-queue
+
+  queuepolicy:
+    Type: AWS::SQS::QueuePolicy
+    Properties:
+      PolicyDocument:
+        Id: LambdaQueuePolicy
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !Sub arn:aws:iam::${AWS::AccountId}:role/lambdaRole
+            Action:
+              - sqs:*
+            Resource: !GetAtt queue.Arn
+      Queues:
+        - !Ref queue
+
+  eventSourceMapping:
+    Type: AWS::Lambda::EventSourceMapping
+    Properties:
+      Enabled: true
+      EventSourceArn: !GetAtt queue.Arn
+      FunctionName: !Ref lambdaFunctionName
+      BatchSize: 100
+      MaximumBatchingWindowInSeconds: 10
 
 Outputs:
   lambdaArn:
