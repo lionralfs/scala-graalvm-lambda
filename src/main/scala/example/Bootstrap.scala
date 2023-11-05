@@ -31,7 +31,7 @@ object Bootstrap {
     val List(packageAndClass, handlerMethodName) = handlerName.split("::").toList
 
     val handlerClass = Class.forName(packageAndClass)
-    val handlerMethod = handlerClass.getMethod(handlerMethodName, classOf[String], classOf[Context])
+    val handlerMethod = handlerClass.getMethod(handlerMethodName, classOf[Object], classOf[Context])
     val handler = handlerClass.getConstructor().newInstance()
 
     while (true) {

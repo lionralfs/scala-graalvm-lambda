@@ -12,6 +12,31 @@ aws runtime (see [`Bootstrap.scala`](./src/main/scala/example/Bootstrap.scala))
 
 ![Results](./results.png)
 
+Loadtest:
+
+```sh
+npx artillery quick --count 20 --num 1000 <function url>
+```
+
+Query:
+
+```
+filter @type = "REPORT"
+    | parse @log /\d+:\/aws\/lambda\/(?<function>.*)/
+    | stats
+    count(*) as invocations,
+    pct(@duration+coalesce(@initDuration,0), 0) as p0,
+    pct(@duration+coalesce(@initDuration,0), 25) as p25,
+    pct(@duration+coalesce(@initDuration,0), 50) as p50,
+    pct(@duration+coalesce(@initDuration,0), 75) as p75,
+    pct(@duration+coalesce(@initDuration,0), 90) as p90,
+    pct(@duration+coalesce(@initDuration,0), 95) as p95,
+    pct(@duration+coalesce(@initDuration,0), 99) as p99,
+    pct(@duration+coalesce(@initDuration,0), 100) as p100
+    group by function, ispresent(@initDuration) as coldstart
+    | sort by coldstart, function
+```
+
 ### for local testing
 
 1. `./deployment/build.sh`
